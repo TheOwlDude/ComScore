@@ -49,7 +49,7 @@ public class DataStoreTests {
         CompareViewings(map, new Viewing[] { fromStore1, fromStore2 });
     }
 
-    private void CompareViewings(Map<ViewingKey,Viewing> originalViewings, Viewing[] fromStoreViewings) {
+    public static void CompareViewings(Map<ViewingKey,Viewing> originalViewings, Viewing[] fromStoreViewings) {
         for(int i = 0; i < fromStoreViewings.length ; ++i) {
             ViewingKey fromStroreKey = fromStoreViewings[i].getViewingKey();
             Viewing originalViewing = originalViewings.get(fromStroreKey);
