@@ -33,7 +33,7 @@ public class Query {
             executor = QueryParser.getExecutor(queryArgs);
         }
         catch (Exception e) {
-            System.out.println(String.format("Exception parsing query: %s", e.getMessage()));
+            System.out.println(String.format("Exception parsing query: %s", e.toString()));
             printUsage();
             return;
         }

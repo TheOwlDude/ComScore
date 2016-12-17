@@ -18,6 +18,7 @@ public class QueryParser {
         if (args.size() < 2) throw new Exception("At least 2 query arguments are required");
 
         QueryExecutor query = new QueryExecutor();
+        query.orderFields = new ArrayList<>();  //initialize to empty list. Will get overwritten if requested
 
         boolean foundSelectArg = false;
         for(int i = 0; i < args.size() / 2; ++i) {
@@ -29,8 +30,8 @@ public class QueryParser {
                 case "-o":
                     String[] orderByFieldStrings = args.get(2 * i + 1).split(",");
                     List<QueryField>  orderByFields = new ArrayList<>();
-                    for(int j = 0; j < orderByFieldStrings.length; ++i) {
-                        orderByFields.add(QueryField.valueOf(orderByFieldStrings[i].toUpperCase()));
+                    for(int j = 0; j < orderByFieldStrings.length; ++j) {
+                        orderByFields.add(QueryField.valueOf(orderByFieldStrings[j].toUpperCase()));
                     }
                     query.orderFields = orderByFields;
                     break;
