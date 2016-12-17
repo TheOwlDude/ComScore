@@ -20,13 +20,6 @@ public class FileImporterTests {
         if (!Files.exists(importFolder)) Files.createDirectory(importFolder);
     }
 
-    @Test
-    public void wildcardTests()
-    {
-        Path wildcardPath = Paths.get(importFolder.toString(), "foo.*");
-
-    }
-
 
     @Test
     public void parsesFileWithHeaderRow() throws Exception {
