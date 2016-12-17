@@ -2,8 +2,6 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Dictionary;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -44,13 +42,13 @@ public class DataStore {
 
 
     /**
-     * Returns a MasterStream object that can be used to iterate through the Viewings in the store. If the store file
+     * Returns a Reader object that can be used to iterate through the Viewings in the store. If the store file
      * @return
      * @throws FileNotFoundException
      */
-    public MasterStream getMasterStream() throws FileNotFoundException {
+    public Reader getReader() throws FileNotFoundException {
         Path masterPath = Paths.get(storePath.toString(), masterStoreFileName);
-        return Files.exists(masterPath) ? new MasterStream(this) : null;
+        return Files.exists(masterPath) ? new Reader(this) : null;
     }
 
     /**
@@ -154,13 +152,13 @@ public class DataStore {
     /**
      * Provides access to the data in the store synchronized with updates.
      */
-    public class MasterStream implements Closeable {
+    public class Reader implements Closeable {
 
         private ReentrantLock lock;
 
         private InputStream inputStream;
 
-        private MasterStream(DataStore store) throws FileNotFoundException {
+        private Reader(DataStore store) throws FileNotFoundException {
             this.lock = store.lock;
             this.lock.lock();
             try {

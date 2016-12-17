@@ -1,11 +1,9 @@
 
 
-import java.math.BigDecimal;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.Duration;
 import java.util.Date;
 import java.util.regex.Pattern;
 
@@ -145,8 +143,21 @@ public class Viewing {
     }
 
 
-    public ViewingKey getViewingKey() {
-        return new ViewingKey(this);
+    public ViewingKey getViewingKey() { return new ViewingKey(this); }
+
+
+    public String getStringValueForQueryField(QueryField queryField) throws Exception {
+        switch(queryField) {
+            case STB: return setTopBoxId;
+            case TITLE: return title;
+            case PROVIDER: return provider;
+            case DATE:
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                return sdf.format(viewDate);
+            case REV: return String.format("%d.%2d", revenueInCents / 100, revenueInCents % 100);
+            case VIEW_TIME: return String.format("%d.%2d", viewDurationInMinutes / 60, viewDurationInMinutes % 60);
+            default: throw new Exception (String.format("Unexeoected queryFiled: %s", queryField));
+        }
     }
 
 

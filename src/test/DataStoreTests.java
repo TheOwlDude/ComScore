@@ -37,7 +37,7 @@ public class DataStoreTests {
 
         store.AddUpdate(map);
 
-        DataStore.MasterStream stream = store.getMasterStream();
+        DataStore.Reader stream = store.getReader();
         Viewing fromStore1 = stream.getNextViewing();
         Assert.assertNotNull(fromStore1);
         Viewing fromStore2 = stream.getNextViewing();
@@ -89,7 +89,7 @@ public class DataStoreTests {
 
         store.AddUpdate(mapAdd);
 
-        DataStore.MasterStream stream = store.getMasterStream();
+        DataStore.Reader stream = store.getReader();
 
         Viewing fromStore1 = stream.getNextViewing();
         Assert.assertNotNull(fromStore1);
@@ -134,7 +134,7 @@ public class DataStoreTests {
 
         store.AddUpdate(mapAddUpate);
 
-        DataStore.MasterStream stream = store.getMasterStream();
+        DataStore.Reader stream = store.getReader();
 
         Viewing fromStore1 = stream.getNextViewing();
         Assert.assertNotNull(fromStore1);
@@ -174,7 +174,7 @@ public class DataStoreTests {
         store.AddUpdate(map);
 
         //store is locked because stream is open
-        DataStore.MasterStream stream = store.getMasterStream();
+        DataStore.Reader stream = store.getReader();
 
         //try to update on another thread
         Viewing viewing3 = new Viewing("stb1|the matrix|warner bros|2014-04-01|4.00|1:30");
@@ -202,7 +202,7 @@ public class DataStoreTests {
 
         Thread.sleep(250);  //give the other thread a little time to finish writing the extra data.
 
-        stream = store.getMasterStream();  //now reopen we will see all 4 viewings
+        stream = store.getReader();  //now reopen we will see all 4 viewings
 
         fromStore1 = stream.getNextViewing();
         Assert.assertNotNull(fromStore1);

@@ -2,10 +2,10 @@
  * Created by Brian on 12/16/2016.
  */
 public enum QueryField {
-    SETTOPBOXID,
+    STB,
     TITLE,
     PROVIDER,
     DATE,
-    REVENUE,
-    VIEWTIME
+    REV,
+    VIEW_TIME
 }
