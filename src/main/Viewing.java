@@ -155,7 +155,7 @@ public class Viewing {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                 return sdf.format(viewDate);
             case REV: return String.format("%d.%02d", revenueInCents / 100, revenueInCents % 100);
-            case VIEW_TIME: return String.format("%d.%02d", viewDurationInMinutes / 60, viewDurationInMinutes % 60);
+            case VIEW_TIME: return String.format("%d:%02d", viewDurationInMinutes / 60, viewDurationInMinutes % 60);
             default: throw new Exception (String.format("Unexeoected queryFiled: %s", queryField));
         }
     }

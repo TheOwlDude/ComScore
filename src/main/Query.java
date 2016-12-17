@@ -7,6 +7,8 @@ import java.util.Map;
 
 /**
  * Created by bkcol_000 on 12/17/2016.
+ *
+ * class with main, supports executing queries from the command line/
  */
 public class Query {
 
@@ -48,7 +50,7 @@ public class Query {
     }
 
     private static void printUsage() {
-        System.out.println("USAGE: storeFolder -s selecList  [-o orderList] [-f filterCondition]");
+        System.out.println("USAGE: storeFolder -s selectList  [-o orderList] [-f filterCondition]");
     }
 
 }

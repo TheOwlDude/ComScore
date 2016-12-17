@@ -1,5 +1,8 @@
 /**
  * Created by bkcol_000 on 12/17/2016.
+ *
+ * Represents a single result row.
+ *
  */
 public class QueryResultItem implements Comparable<QueryResultItem>{
     public String displayString;

@@ -2,6 +2,8 @@ import java.util.List;
 
 /**
  * Created by bkcol_000 on 12/17/2016.
+ *
+ * 
  */
 public class FieldValueList implements Comparable<FieldValueList> {
     private List<String> fieldValues;

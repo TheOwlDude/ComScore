@@ -3,6 +3,11 @@ import java.text.SimpleDateFormat;
 
 /**
  * Created by Brian on 12/15/2016.
+ *
+ * Represents the unique id for a store item i.e. stb, title, and date
+ *
+ * Can be used as a key in a map to determine when an item is duplicated and needs to be updated rather than inserted
+ *
  */
 public class ViewingKey {
     private String setTopBoxId;

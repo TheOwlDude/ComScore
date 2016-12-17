@@ -6,6 +6,11 @@ import java.util.List;
 
 /**
  * Created by Brian on 12/16/2016.
+ *
+ * Stores the parsed representation of a query
+ *
+ * Is able to create the result set for the query given a DataStore.Reader
+ *
  */
 public class QueryExecutor implements Comparator<QueryResultItem> {
     public List<SelectQueryField> selectFields;

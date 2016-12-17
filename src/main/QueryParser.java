@@ -14,31 +14,47 @@ public class QueryParser {
 
     public static QueryExecutor getExecutor(List<String> args) throws Exception {
         if (args.size() % 2 != 0) throw new Exception("Expected even number of arguments");
-        if (args.size() > 6) throw new Exception("No more than 6 query arguments are defined");
         if (args.size() < 2) throw new Exception("At least 2 query arguments are required");
 
         QueryExecutor query = new QueryExecutor();
         query.orderFields = new ArrayList<>();  //initialize to empty list. Will get overwritten if requested
 
         boolean foundSelectArg = false;
-        for(int i = 0; i < args.size() / 2; ++i) {
-            switch(args.get(2 * i).toLowerCase()) {
-                case "-s":
-                    foundSelectArg = true;
-                    query.selectFields = getSelectQueryFields(args.get(2 * i + 1));
-                    break;
-                case "-o":
-                    String[] orderByFieldStrings = args.get(2 * i + 1).split(",");
-                    List<QueryField>  orderByFields = new ArrayList<>();
-                    for(int j = 0; j < orderByFieldStrings.length; ++j) {
-                        orderByFields.add(QueryField.valueOf(orderByFieldStrings[j].toUpperCase()));
-                    }
-                    query.orderFields = orderByFields;
-                    break;
-                //TODO: implement filter
 
+
+        //Ordering of query operations is enforced, -s is required and must be first.
+        int i = 0;
+        if (!args.get(i++).toLowerCase().equals("-s")) {
+            throw new Exception ("-s selectList is required");
+        }
+        query.selectFields = getSelectQueryFields(args.get(i++));
+
+        //Parse -o if present
+        //-o is optional and must precede -f if both are present.
+        //specifying -f prior to -o manifests as a filter parse error. The -o token is unexpected during filter parsing
+        if (i < args.size() && args.get(i).toLowerCase().equals("-o")) {
+            i++; //clear -o
+            String[] orderByFieldStrings = args.get(i++).split(",");
+            List<QueryField> orderByFields = new ArrayList<>();
+            for (int j = 0; j < orderByFieldStrings.length; ++j) {
+                orderByFields.add(QueryField.valueOf(orderByFieldStrings[j].toUpperCase()));
+            }
+            query.orderFields = orderByFields;
+        }
+
+        //Parse -f if present
+        if (i < args.size()) {
+            String filterArg = args.get(i++);
+            if (!filterArg.toLowerCase().equals("-f")) {
+                throw new Exception("Expecting -f");
+            }
+            query.selector = new LeafViewingSelector(parseLeafFilter(args.get(i++)));
+
+            if (args.size() > i) {
+                throw new UnsupportedOperationException("Advanced filters are not yet supported");
             }
         }
+
         return query;
     }
 
@@ -54,6 +70,15 @@ public class QueryParser {
             if (queryFieldParts.length > 1) gqf.groupOperation = GroupOperation.valueOf(queryFieldParts[1].toUpperCase());
             result.add(gqf);
         }
+        return result;
+    }
+
+    public static LeafFilterCondition parseLeafFilter(String filterCondition) throws Exception {
+        int eqPos = filterCondition.indexOf('=');
+        if (eqPos == -1) throw new Exception("Failed to parse filter condition");
+        LeafFilterCondition result = new LeafFilterCondition();
+        result.field = QueryField.valueOf(filterCondition.substring(0, eqPos).toUpperCase());
+        result.eqValue = filterCondition.substring(eqPos + 1);
         return result;
     }
 
