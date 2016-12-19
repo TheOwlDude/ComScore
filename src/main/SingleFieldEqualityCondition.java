@@ -3,7 +3,7 @@
  *
  * Represents a simple field equality condition
  */
-public class LeafFilterCondition {
-    public QueryField field;
+public class SingleFieldEqualityCondition {
+    public SchemaField field;
     public String eqValue;
 }

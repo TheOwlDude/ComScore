@@ -19,6 +19,9 @@ public class DataStoreTests {
     @BeforeClass
     public static void setup() throws IOException {
         if (!Files.exists(storeFolder)) Files.createDirectory(storeFolder);
+
+
+
     }
 
     @Test

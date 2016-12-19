@@ -6,9 +6,9 @@
  */
 public class QueryResultItem implements Comparable<QueryResultItem>{
     public String displayString;
-    private FieldValueList sortObject;
+    private SchemaFieldValueList sortObject;
 
-    public QueryResultItem(String displayString, FieldValueList sortObject) {
+    public QueryResultItem(String displayString, SchemaFieldValueList sortObject) {
         this.displayString = displayString;
         this.sortObject = sortObject;
     }

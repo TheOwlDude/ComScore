@@ -146,7 +146,7 @@ public class Viewing {
     public ViewingKey getViewingKey() { return new ViewingKey(this); }
 
 
-    public String getStringValueForQueryField(QueryField queryField) throws Exception {
+    public String getStringValueForQueryField(SchemaField queryField) throws Exception {
         switch(queryField) {
             case STB: return setTopBoxId;
             case TITLE: return title;

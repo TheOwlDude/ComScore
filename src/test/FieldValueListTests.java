@@ -14,7 +14,7 @@ public class FieldValueListTests {
         List<String> list1 = new ArrayList<>();
         List<String> list2 = new ArrayList<>();
 
-        Assert.assertEquals(0, new FieldValueList(list1).compareTo(new FieldValueList(list2)));
+        Assert.assertEquals(0, new SchemaFieldValueList(list1).compareTo(new SchemaFieldValueList(list2)));
     }
 
 
@@ -30,7 +30,7 @@ public class FieldValueListTests {
         list2.add("b");
         list2.add("c");
 
-        Assert.assertEquals(0, new FieldValueList(list1).compareTo(new FieldValueList(list2)));
+        Assert.assertEquals(0, new SchemaFieldValueList(list1).compareTo(new SchemaFieldValueList(list2)));
     }
 
     @Test
@@ -45,7 +45,7 @@ public class FieldValueListTests {
         list2.add("b");
         list2.add("c");
 
-        Assert.assertTrue(new FieldValueList(list1).compareTo(new FieldValueList(list2)) < 0);
+        Assert.assertTrue(new SchemaFieldValueList(list1).compareTo(new SchemaFieldValueList(list2)) < 0);
     }
 
     @Test
@@ -60,7 +60,7 @@ public class FieldValueListTests {
         list2.add("b");
         list2.add("c");
 
-        Assert.assertTrue(new FieldValueList(list1).compareTo(new FieldValueList(list2)) > 0);
+        Assert.assertTrue(new SchemaFieldValueList(list1).compareTo(new SchemaFieldValueList(list2)) > 0);
     }
 
     @Test
@@ -76,7 +76,7 @@ public class FieldValueListTests {
         list2.add("b");
         list2.add("c");
 
-        Assert.assertTrue(new FieldValueList(list1).compareTo(new FieldValueList(list2)) > 0);
+        Assert.assertTrue(new SchemaFieldValueList(list1).compareTo(new SchemaFieldValueList(list2)) > 0);
     }
 
     @Test
@@ -90,7 +90,7 @@ public class FieldValueListTests {
         list2.add("b");
         list2.add("c");
 
-        Assert.assertTrue(new FieldValueList(list1).compareTo(new FieldValueList(list2)) < 0);
+        Assert.assertTrue(new SchemaFieldValueList(list1).compareTo(new SchemaFieldValueList(list2)) < 0);
     }
 
 
@@ -100,19 +100,19 @@ public class FieldValueListTests {
         list1.add("a");
         list1.add("b");
         list1.add("c");
-        FieldValueList fvl1 = new FieldValueList(list1);
+        SchemaFieldValueList fvl1 = new SchemaFieldValueList(list1);
 
         List<String> list2 = new ArrayList<>();
         list2.add("a");
         list2.add("b");
         list2.add("c");
-        FieldValueList fvl2 = new FieldValueList(list2);
+        SchemaFieldValueList fvl2 = new SchemaFieldValueList(list2);
 
         List<String> list3 = new ArrayList<>();
         list3.add("a");
         list3.add("b");
         list3.add("d");
-        FieldValueList fvl3 = new FieldValueList(list3);
+        SchemaFieldValueList fvl3 = new SchemaFieldValueList(list3);
 
         Assert.assertEquals(fvl1.hashCode(), fvl2.hashCode());
         Assert.assertTrue(fvl1.equals(fvl2));
@@ -126,10 +126,10 @@ public class FieldValueListTests {
     @Test
     public void EmptyListsAreEqual() {
         List<String> list1 = new ArrayList<>();
-        FieldValueList fvl1 = new FieldValueList(list1);
+        SchemaFieldValueList fvl1 = new SchemaFieldValueList(list1);
 
         List<String> list2 = new ArrayList<>();
-        FieldValueList fvl2 = new FieldValueList(list2);
+        SchemaFieldValueList fvl2 = new SchemaFieldValueList(list2);
 
         Assert.assertEquals(fvl1.hashCode(), fvl2.hashCode());
         Assert.assertTrue(fvl1.equals(fvl2));

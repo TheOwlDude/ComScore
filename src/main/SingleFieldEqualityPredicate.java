@@ -4,11 +4,11 @@
  * Selector for a simple field equality condition
  *
  */
-public class LeafViewingSelector implements ViewingSelector {
+public class SingleFieldEqualityPredicate implements ViewingPredicate {
 
-    private LeafFilterCondition leafFilterCondition;
+    private SingleFieldEqualityCondition leafFilterCondition;
 
-    public LeafViewingSelector(LeafFilterCondition leafFilterCondition) {
+    public SingleFieldEqualityPredicate(SingleFieldEqualityCondition leafFilterCondition) {
         this.leafFilterCondition = leafFilterCondition;
     }
     public boolean isSelected(Viewing viewing) throws Exception {

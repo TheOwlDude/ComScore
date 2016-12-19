@@ -3,7 +3,7 @@
  *
  * Represents a field specified in the select list
  */
-public class SelectQueryField {
-    public QueryField field;
+public class SchemaFieldWithGroupOperation {
+    public SchemaField field;
     public GroupOperation groupOperation;
 }

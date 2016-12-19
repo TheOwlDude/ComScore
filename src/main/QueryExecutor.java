@@ -1,5 +1,3 @@
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -13,9 +11,9 @@ import java.util.List;
  *
  */
 public class QueryExecutor implements Comparator<QueryResultItem> {
-    public List<SelectQueryField> selectFields;
-    public List<QueryField> orderFields;
-    public ViewingSelector selector = new AllViewingSelector();
+    public List<SchemaFieldWithGroupOperation> selectFields;
+    public List<SchemaField> orderFields;
+    public ViewingPredicate selector = new UniversallySatisfiedViewingPredicate();
 
     public int compare(QueryResultItem o1, QueryResultItem o2) {
         return o1.compareTo(o2);
@@ -47,18 +45,18 @@ public class QueryExecutor implements Comparator<QueryResultItem> {
         return results;
     }
 
-    private FieldValueList getOrderByValuesForViewing(Viewing viewing) throws Exception {
+    private SchemaFieldValueList getOrderByValuesForViewing(Viewing viewing) throws Exception {
         List<String> orderByValues = new ArrayList<>();
-        for(QueryField qf : orderFields) {
+        for(SchemaField qf : orderFields) {
             orderByValues.add(viewing.getStringValueForQueryField(qf));
         }
-        return new FieldValueList(orderByValues);
+        return new SchemaFieldValueList(orderByValues);
     }
 
     private String getDisplayValueForViewing(Viewing viewing) throws Exception {
         StringBuilder sb = new StringBuilder();
         boolean firstField = true;
-        for(SelectQueryField sqf : selectFields) {
+        for(SchemaFieldWithGroupOperation sqf : selectFields) {
             if (!firstField) sb.append(",");
             firstField = false;
             sb.append(viewing.getStringValueForQueryField(sqf.field));

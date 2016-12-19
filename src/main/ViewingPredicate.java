@@ -4,6 +4,6 @@
  * Predicate interface for filters.
  *
  */
-public interface ViewingSelector {
+public interface ViewingPredicate {
     boolean isSelected(Viewing viewing) throws Exception;
 }

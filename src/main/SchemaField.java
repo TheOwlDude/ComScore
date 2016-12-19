@@ -1,7 +1,7 @@
 /**
  * Created by Brian on 12/16/2016.
  */
-public enum QueryField {
+public enum SchemaField {
     STB,
     TITLE,
     PROVIDER,

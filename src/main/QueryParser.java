@@ -13,7 +13,6 @@ import java.util.List;
 public class QueryParser {
 
     public static QueryExecutor getExecutor(List<String> args) throws Exception {
-        if (args.size() % 2 != 0) throw new Exception("Expected even number of arguments");
         if (args.size() < 2) throw new Exception("At least 2 query arguments are required");
 
         QueryExecutor query = new QueryExecutor();
@@ -35,9 +34,9 @@ public class QueryParser {
         if (i < args.size() && args.get(i).toLowerCase().equals("-o")) {
             i++; //clear -o
             String[] orderByFieldStrings = args.get(i++).split(",");
-            List<QueryField> orderByFields = new ArrayList<>();
+            List<SchemaField> orderByFields = new ArrayList<>();
             for (int j = 0; j < orderByFieldStrings.length; ++j) {
-                orderByFields.add(QueryField.valueOf(orderByFieldStrings[j].toUpperCase()));
+                orderByFields.add(SchemaField.valueOf(orderByFieldStrings[j].toUpperCase()));
             }
             query.orderFields = orderByFields;
         }
@@ -48,7 +47,7 @@ public class QueryParser {
             if (!filterArg.toLowerCase().equals("-f")) {
                 throw new Exception("Expecting -f");
             }
-            query.selector = new LeafViewingSelector(parseLeafFilter(args.get(i++)));
+            query.selector = new SingleFieldEqualityPredicate(parseLeafFilter(args.get(i++)));
 
             if (args.size() > i) {
                 throw new UnsupportedOperationException("Advanced filters are not yet supported");
@@ -59,25 +58,25 @@ public class QueryParser {
     }
 
 
-    public static List<SelectQueryField> getSelectQueryFields(String selectFields) {
-        List<SelectQueryField> result = new ArrayList<>();
+    public static List<SchemaFieldWithGroupOperation> getSelectQueryFields(String selectFields) {
+        List<SchemaFieldWithGroupOperation> result = new ArrayList<>();
 
         String[] splitFields = selectFields.split(",");
         for(int i = 0; i < splitFields.length; ++i) {
             String[] queryFieldParts = splitFields[i].split(":");
-            SelectQueryField gqf = new SelectQueryField();
-            gqf.field = QueryField.valueOf(queryFieldParts[0].toUpperCase());
+            SchemaFieldWithGroupOperation gqf = new SchemaFieldWithGroupOperation();
+            gqf.field = SchemaField.valueOf(queryFieldParts[0].toUpperCase());
             if (queryFieldParts.length > 1) gqf.groupOperation = GroupOperation.valueOf(queryFieldParts[1].toUpperCase());
             result.add(gqf);
         }
         return result;
     }
 
-    public static LeafFilterCondition parseLeafFilter(String filterCondition) throws Exception {
+    public static SingleFieldEqualityCondition parseLeafFilter(String filterCondition) throws Exception {
         int eqPos = filterCondition.indexOf('=');
         if (eqPos == -1) throw new Exception("Failed to parse filter condition");
-        LeafFilterCondition result = new LeafFilterCondition();
-        result.field = QueryField.valueOf(filterCondition.substring(0, eqPos).toUpperCase());
+        SingleFieldEqualityCondition result = new SingleFieldEqualityCondition();
+        result.field = SchemaField.valueOf(filterCondition.substring(0, eqPos).toUpperCase());
         result.eqValue = filterCondition.substring(eqPos + 1);
         return result;
     }
