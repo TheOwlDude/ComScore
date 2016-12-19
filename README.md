@@ -5,6 +5,7 @@ Java Solution to ComScore programming challenge
 Two classes have Main.
 
 Import         
+======
 
 USAGE: storeFolder importFile1 importFile2 . . .
 
@@ -24,7 +25,8 @@ and Query operations which reduced the amount of work I had to do. Since this is
 
 
 
-Query          
+Query
+=====
 
 USAGE: storeFolder -s selectList [-o orderList] [-f filterCondition]
 
