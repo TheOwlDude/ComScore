@@ -4,7 +4,9 @@ Java Solution to ComScore programming challenge
 
 Two classes have Main.
 
-Import         USAGE: storeFolder importFile1 importFile2 . . .
+Import         
+
+USAGE: storeFolder importFile1 importFile2 . . .
 
 Allows adding/updating data to the data store. The folder supplied on the command line must exist, the class will not create it.
 
@@ -22,7 +24,9 @@ and Query operations which reduced the amount of work I had to do. Since this is
 
 
 
-Query          USAGE: storeFolder -s selectList [-o orderList] [-f filterCondition]
+Query          
+
+USAGE: storeFolder -s selectList [-o orderList] [-f filterCondition]
 
 Prints to the screen the results of the supplied query. The command line differs slightly from the specification. It requires the 
 path to the store folder be supplied as the first argument.
